@@ -8,7 +8,6 @@ app.use(cors())
 require('dotenv').config()
 
 const PORT = process.env.PORT
-
 const Post = require('./models/Posts')
 
 app.use(express.json()) // --> função que vai rodar o middleware no projeto
@@ -21,7 +20,7 @@ app.post('/newUsers', (req, res) => {
     const name = req.body.name
 
     // console.log(teste)
-    res.send(`Nome : ${name}`)
+    res.send({name})
 })
 
 //rota de criar as os dados(os posts)
