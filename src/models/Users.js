@@ -1,14 +1,18 @@
 const mongoose = require('../db/db')
 
 const PostSchema = new mongoose.Schema({
-    title: {
+    name: {
         type: String,
          required: true// --> como obrigatorio o tipo
     },
-    content: {
+    email: {
         type: String,
         required: true
         
+    },
+    descripition: {
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,

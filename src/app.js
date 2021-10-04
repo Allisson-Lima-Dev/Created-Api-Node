@@ -8,7 +8,7 @@ app.use(cors())
 require('dotenv').config()
 
 const PORT = process.env.PORT
-const Post = require('./models/Posts')
+const UserDB = require('./models/Users')
 
 app.use(express.json()) // --> função que vai rodar o middleware no projeto
 
@@ -25,14 +25,14 @@ app.post('/newUsers', (req, res) => {
 
 //rota de criar as os dados(os posts)
 
-app.post('/create_post', async (req, res) => {
+app.post('/create_user', async (req, res) => {
 
     try{
-        const { title, content } = req.body
+        const { name, email, descripition } = req.body
 
-        const post = await Post.create({ title, content })
+        const user = await UserDB.create({ name, email, descripition })
       
-          res.send(post)
+          res.send(user)
       
     }catch(err) {
         res.send(err)
@@ -40,11 +40,11 @@ app.post('/create_post', async (req, res) => {
 })
 // rota de listar os dados
 
-app.get('/list_posts', async (req, res) => {
+app.get('/list_users', async (req, res) => {
     try{
-       const posts = await Post.find()
+       const users = await UserDB.find()
 
-       res.send({ posts })
+       res.send({ users })
         
     }catch(err){
         res.status(400).send(err)
@@ -53,11 +53,11 @@ app.get('/list_posts', async (req, res) => {
 
 //rota de pegar pelo paramentro(id)
 
-app.get('/show_posts/:post_id', async (req, res) => {
+app.get('/show_users/:user_id', async (req, res) => {
     try{
-        const postId = req.params.post_id
-        const post = await Post.find({ _id: postId })
-        res.send({ post })
+        const userId = req.params.user_id
+        const user = await UserDB.find({ _id: userId })
+        res.send({ user })
     }catch(err){
         res.status(400).send(err)
     }
@@ -65,16 +65,16 @@ app.get('/show_posts/:post_id', async (req, res) => {
 
 //atualizar os post na rota
 
-app.patch('/update_post/:post_id', async (req, res) => {
+app.patch('/update_user/:user_id', async (req, res) => {
     try{
         
-        const postId = req.params.post_id
+        const userId = req.params.user_id
 
-        const { title , content } = req.body
+        const { name , email, descripition } = req.body
 
-        const post = await Post.findByIdAndUpdate( postId, { title, content }, { new: true })
+        const user = await UserDB.findByIdAndUpdate( userId, { name, email, descripition }, { new: true })
 
-        res.send({post})
+        res.send({ user })
 
     }catch(err){
         res.status(400).send('deu erro' + err)
@@ -87,7 +87,7 @@ app.delete('/delete_post/:post_id', async (req, res) => {
     try{
         const postId = req.params.post_id
 
-         await Post.findByIdAndDelete(postId)
+         await UserDB.findByIdAndDelete(postId)
 
         res.send({message: 'Deletado com sucesso'})
 
