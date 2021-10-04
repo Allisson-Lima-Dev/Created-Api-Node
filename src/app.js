@@ -77,7 +77,7 @@ app.patch('/update_post/:post_id', async (req, res) => {
         res.send({post})
 
     }catch(err){
-        res.status(400).send(err)
+        res.status(400).send('deu erro' + err)
     }
 })
 
