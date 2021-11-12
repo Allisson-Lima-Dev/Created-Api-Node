@@ -32,7 +32,8 @@ app.post('/create_user', async (req, res) => {
 
         const user = await UserDB.create({ name, email, descripition })
       
-          res.send(user)
+        //   res.send(user)
+        res.json({message: 'Create user success!'})
       
     }catch(err) {
         res.send(err)
