@@ -34,6 +34,7 @@ app.post('/create_user', async (req, res) => {
       
         //   res.send(user)
         res.json({message: 'Create user success!'})
+        res.send({message: 'Create user success!'})
       
     }catch(err) {
         res.send(err)
